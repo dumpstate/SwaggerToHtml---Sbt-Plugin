@@ -14,7 +14,7 @@ object SwaggerToHtmlPlugin extends AutoPlugin {
   lazy val swaggerToHtml = taskKey[Unit]("Generates HTML from Swagger spec.")
 
   lazy val swaggerToHtmlInput = settingKey[File]("Swagger spec file.")
-  lazy val swaggerToHtmlOutput = settingKey[File]("Output file.")
+  lazy val swaggerToHtmlOutput = settingKey[File]("Output directory.")
 
   private def config(out: String) = {
     val conf = new StaticHtmlGenerator()
@@ -37,7 +37,7 @@ object SwaggerToHtmlPlugin extends AutoPlugin {
 
   override def projectSettings = Seq(
     swaggerToHtmlInput := baseDirectory.value / "doc" / "swagger.yaml",
-    swaggerToHtmlOutput := baseDirectory.value / "doc" / "swagger-index.html",
+    swaggerToHtmlOutput := baseDirectory.value / "doc" / "swagger-html",
     swaggerToHtml := {
       swaggerToHtmlInput.value exists match {
         case true =>
